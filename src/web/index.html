@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>公众号一键排版</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>📝</text></svg>" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark">排</span>
+      <div>
+        <h1>公众号一键排版</h1>
+        <p id="subtitle">写 Markdown，右侧即所见，复制后直接粘贴进公众号后台</p>
+      </div>
+    </div>
+    <div class="actions">
+      <button id="btn-sample" class="btn btn-ghost" type="button">示例</button>
+      <button id="btn-import" class="btn btn-import" type="button" title="支持 Markdown / txt / Word(.docx) / PDF"><span class="btn-icon">⤓</span>导入文件</button>
+      <button id="btn-export" class="btn btn-ghost" type="button">导出 HTML</button>
+      <button id="btn-clear" class="btn btn-ghost" type="button">清空</button>
+      <button id="btn-copy" class="btn btn-primary" type="button">一键排版并复制</button>
+      <input id="file-input" type="file" accept=".md,.markdown,.txt" hidden />
+    </div>
+  </header>
+
+  <main class="workspace">
+    <section class="pane pane-editor" id="drop-zone">
+      <div class="pane-head">
+        <span>Markdown</span>
+        <span class="counter" id="counter">0 字</span>
+      </div>
+      <div class="editor-wrap">
+        <textarea id="editor" spellcheck="false" placeholder="在这里写 Markdown……"></textarea>
+        <div class="dropzone" id="dropzone" hidden>
+          <div class="dropzone-icon">⤓</div>
+          <p class="dropzone-title">把文件拖到这里</p>
+          <p class="dropzone-sub">支持 Markdown / txt / Word(.docx) / PDF<br />也可以点右上角的「导入文件」，或直接在这里开始写</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="pane pane-preview">
+      <div class="pane-head">
+        <span>预览（手机宽度）</span>
+        <span class="counter" id="warn-count"></span>
+      </div>
+      <div class="phone">
+        <iframe id="preview" title="排版预览"></iframe>
+      </div>
+    </section>
+
+    <aside class="pane pane-settings">
+      <div class="pane-head"><span>排版设置</span>
+        <button id="btn-reset" class="btn-link" type="button">全部重置</button>
+      </div>
+      <div class="settings-scroll" id="settings-host"></div>
+    </aside>
+  </main>
+
+  <div class="toast" id="toast" hidden></div>
+  <div class="warnings" id="warnings" hidden></div>
+
+  <script type="module" src="./main.ts"></script>
+</body>
+</html>

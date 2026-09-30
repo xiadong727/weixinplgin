@@ -1,0 +1,240 @@
+@import '../ui/panel.css';
+
+:root {
+  --fg: #1f2328;
+  --fg-dim: #6b7280;
+  --border: #e5e7eb;
+  --bg: #f2f3f5;
+  --panel: #ffffff;
+  --accent: #07c160;
+  --accent-dark: #06ad56;
+}
+
+* { box-sizing: border-box; }
+
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ---------- 顶栏 ---------- */
+.topbar {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 18px;
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+}
+.brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.brand-mark {
+  width: 32px; height: 32px;
+  display: grid; place-items: center;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+  font-size: 15px;
+  flex: none;
+}
+.brand h1 { margin: 0; font-size: 15px; font-weight: 600; }
+.brand p { margin: 1px 0 0; font-size: 12px; color: var(--fg-dim); }
+
+.actions { display: flex; align-items: center; gap: 8px; flex: 0 1 auto; flex-wrap: wrap; justify-content: flex-end; }
+.btn {
+  font: inherit;
+  font-size: 13px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: #fff;
+  color: var(--fg);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.btn:hover { background: #fafafa; }
+.btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  padding: 6px 16px;
+}
+.btn-primary:hover { background: var(--accent-dark); border-color: var(--accent-dark); }
+/* 导入按钮给个绿描边，从一排灰按钮里跳出来 */
+.btn-import {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border-color: var(--accent);
+  color: var(--accent-dark);
+  background: #f0fff7;
+  font-weight: 600;
+}
+.btn-import:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn-icon { font-size: 14px; line-height: 1; }
+
+.btn-link {
+  font: inherit; font-size: 12px;
+  background: none; border: none; padding: 0;
+  color: var(--fg-dim); cursor: pointer; text-decoration: underline;
+}
+.btn-link:hover { color: var(--fg); }
+
+/* ---------- 工作区 ---------- */
+.workspace {
+  flex: 1 1 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 300px;
+  gap: 12px;
+  padding: 12px;
+  min-height: 0;
+}
+.pane {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.pane-head {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--fg-dim);
+  border-bottom: 1px solid var(--border);
+  background: #fbfbfc;
+}
+.counter { font-weight: 400; }
+
+.editor-wrap { position: relative; flex: 1 1 auto; min-height: 0; display: flex; }
+
+/* 空编辑器时盖在上面的导入引导 */
+.dropzone {
+  position: absolute;
+  left: 18px; right: 18px; top: 22px;
+  padding: 28px 16px;
+  border: 2px dashed #d6dae0;
+  border-radius: 12px;
+  text-align: center;
+  color: #8b929c;
+  pointer-events: none;
+  background: #fcfcfd;
+}
+.dropzone[hidden] { display: none; }
+.dropzone-icon { font-size: 30px; line-height: 1; color: #b6bcc5; }
+.dropzone-title { margin: 10px 0 4px; font-size: 14px; font-weight: 600; color: #5c636d; }
+.dropzone-sub { margin: 0; font-size: 12px; line-height: 1.5; }
+.pane-editor.is-dragover .dropzone { border-color: var(--accent); color: var(--accent); background: #f2fff8; }
+.pane-editor.is-dragover .dropzone-title { color: var(--accent-dark); }
+
+#editor {
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  border: none;
+  outline: none;
+  resize: none;
+  padding: 14px 16px;
+  font-family: Menlo, Consolas, 'PingFang SC', monospace;
+  font-size: 13.5px;
+  line-height: 1.75;
+  color: var(--fg);
+  background: transparent;
+  tab-size: 2;
+}
+.pane-editor.is-dragover { outline: 2px dashed var(--accent); outline-offset: -4px; }
+
+.pane-preview { background: #eceef1; }
+.phone {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  justify-content: center;
+  padding: 12px 0;
+  overflow: hidden;
+}
+/* iframe 撑满高度，让预览内容用 iframe 自己的滚动条 */
+#preview {
+  width: min(375px, 100%);
+  height: 100%;
+  flex: none;
+  border: none;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
+}
+
+.settings-scroll { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 0 14px 20px; }
+
+/* ---------- 提示 ---------- */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 32px;
+  transform: translateX(-50%);
+  background: rgba(24, 26, 29, 0.92);
+  color: #fff;
+  font-size: 13px;
+  padding: 9px 18px;
+  border-radius: 20px;
+  z-index: 100;
+  max-width: 80vw;
+}
+.warnings {
+  position: fixed;
+  right: 320px;
+  bottom: 20px;
+  max-width: 320px;
+  background: #fff8e6;
+  border: 1px solid #f5d98a;
+  color: #7a5c12;
+  font-size: 12px;
+  line-height: 1.6;
+  padding: 10px 12px;
+  border-radius: 8px;
+  z-index: 90;
+}
+.warnings ul { margin: 4px 0 0; padding-left: 18px; }
+.warnings-head { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.warnings-title { font-weight: 600; }
+.warnings-close {
+  font: inherit; font-size: 15px; line-height: 1;
+  border: none; background: none; color: inherit; opacity: 0.55;
+  cursor: pointer; padding: 0 2px;
+}
+.warnings-close:hover { opacity: 1; }
+
+/* 窄屏：顶栏只留必要信息，工作区改成上下布局 */
+@media (max-width: 960px) {
+  /* 窄屏下提示框改成贴底通栏，别压住编辑区 */
+  .warnings { right: 12px; left: 12px; max-width: none; }
+}
+
+@media (max-width: 900px) {
+  .brand p { display: none; }
+  .topbar { padding: 8px 12px; gap: 8px; }
+  .btn { padding: 5px 10px; }
+}
+
+@media (max-width: 1100px) {
+  .workspace { grid-template-columns: minmax(0, 1fr) 280px; grid-template-rows: 1fr 1fr; }
+  .pane-editor { grid-column: 1; grid-row: 1; }
+  .pane-preview { grid-column: 1; grid-row: 2; }
+  .pane-settings { grid-column: 2; grid-row: 1 / span 2; }
+  .warnings { right: 300px; }
+}

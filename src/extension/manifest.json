@@ -1,0 +1,34 @@
+{
+  "manifest_version": 3,
+  "name": "公众号一键排版",
+  "short_name": "一键排版",
+  "version": "2.1.0",
+  "description": "在公众号后台直接把 Markdown 一键排版进正文：15 套主题、9 套代码高亮、中英文智能空格、外链转脚注，全程内联样式。",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_title": "公众号一键排版",
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "permissions": ["storage", "clipboardWrite", "activeTab"],
+  "host_permissions": ["https://mp.weixin.qq.com/*"],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://mp.weixin.qq.com/cgi-bin/appmsg*",
+        "https://mp.weixin.qq.com/cgi-bin/appmsgtemplate*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ]
+}

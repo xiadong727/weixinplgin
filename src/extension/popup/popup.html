@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>公众号一键排版</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      width: 288px;
+      font: 13px/1.55 -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      color: #1f2328;
+      background: #fff;
+    }
+    header { display: flex; align-items: center; gap: 9px; padding: 13px 14px 10px; }
+    .mark { width: 28px; height: 28px; border-radius: 7px; background: #07c160; display: grid; place-items: center; color: #fff; font-weight: 700; font-size: 13px; }
+    h1 { margin: 0; font-size: 14px; font-weight: 600; }
+    header p { margin: 1px 0 0; font-size: 11px; color: #6b7280; }
+    .body { padding: 0 14px 14px; }
+    .state { font-size: 12px; padding: 8px 10px; border-radius: 7px; background: #f6f7f9; color: #4b5563; margin: 0 0 10px; }
+    .state.ok { background: #ecfdf3; color: #067647; }
+    .state.warn { background: #fffaeb; color: #92400e; }
+    button, a.btn {
+      display: block; width: 100%; text-align: center; text-decoration: none;
+      font: inherit; padding: 8px 10px; margin-bottom: 7px;
+      border: 1px solid #e5e7eb; border-radius: 7px; background: #fff; color: #1f2328; cursor: pointer;
+    }
+    button.primary { background: #07c160; border-color: #07c160; color: #fff; font-weight: 600; }
+    button:disabled { opacity: 0.5; cursor: default; }
+    ol { margin: 10px 0 0; padding-left: 18px; font-size: 11.5px; color: #6b7280; line-height: 1.7; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="mark">排</div>
+    <div>
+      <h1>公众号一键排版</h1>
+      <p>Markdown 一键排进公众号正文</p>
+    </div>
+  </header>
+  <div class="body">
+    <p class="state" id="state">正在检测当前页面……</p>
+    <button class="primary" id="toggle" disabled>打开排版面板</button>
+    <a class="btn" id="open-mp" href="https://mp.weixin.qq.com/cgi-bin/appmsg?t=media/appmsg_edit&action=edit&type=10" target="_blank">去公众号后台新建图文</a>
+    <ol>
+      <li>在后台「新建图文消息」页打开面板</li>
+      <li>面板里写 Markdown，随时切到预览看效果</li>
+      <li>点「一键排版并插入正文」，确认后保存</li>
+      <li>自动插入失败时点「仅复制」，回正文手动粘贴</li>
+    </ol>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
